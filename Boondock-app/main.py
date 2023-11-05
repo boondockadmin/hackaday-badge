@@ -7,7 +7,6 @@ import utime
 import screen
 import wifi
 
-
 # Constants for WiFi and MQTT reconnection attempts
 WIFI_RECONNECT_INTERVAL = 10  # seconds
 MQTT_RECONNECT_INTERVAL = 10  # seconds
@@ -24,11 +23,12 @@ def maintain_wifi_connection():
             screen.display_centered_text("Reconnecting WiFi...")
             wifi.connect_wifi()  # Your function to connect to WiFi
             last_wifi_attempt = time.time()
+            screen.show_network_status()
 
 def maintain_mqtt_connection():
     global last_mqtt_attempt
     # Check if an MQTT client object exists and is connected
-    if 'mqtt_client' not in globals() or not mqtt_client.isconnected():
+    if  wifi.mqtt_connected:
         # Only attempt to reconnect if MQTT_RECONNECT_INTERVAL has passed
         if time.time() - last_mqtt_attempt > MQTT_RECONNECT_INTERVAL:
             screen.display_centered_text("Reconnecting MQTT...")
@@ -43,6 +43,7 @@ wifi.connect_mqtt()
 
 # Show "Waiting" message initially
 screen.display_centered_text("Waiting")
+screen.show_network_status()
 
 # Main loop
 while True:

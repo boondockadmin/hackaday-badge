@@ -3,6 +3,8 @@ from machine import Pin, SPI
 import gc9a01
 import utime
 import vga1_16x32 as font
+import network
+import wifi
  
 
 # Display setup
@@ -20,6 +22,21 @@ tft = gc9a01.GC9A01(
 tft.init()
 tft.fill(gc9a01.BLACK)
 center_x, center_y = tft.width() // 2, tft.height() // 2
+
+
+def show_network_status():
+    if wifi.wifi_connected == 1:
+        tft.fill_rect(110, 220, 8, 8, gc9a01.color565(0, 0, 200))
+    else:
+        tft.fill_rect(110, 220, 8, 8, gc9a01.color565(200, 0, 0))        
+    
+    if wifi.mqtt_connected == 1:
+        tft.fill_rect(120, 220, 8, 8, gc9a01.color565(0, 200, 0))
+    else:
+        tft.fill_rect(120, 220, 8, 8, gc9a01.color565(200, 0, 0))        
+
+def update_screen_status():
+    show_network_status()
 
 def draw_scaled_text(font, text, x, y, scale, foreground, background):
     for char in text:
@@ -39,7 +56,7 @@ def display_centered_text(text, y_offset=0):
     text_width = font.WIDTH * len(text)
     start_x = center_x - (text_width // 2)
     tft.text(font, text, start_x, center_y - (font.HEIGHT // 2) + y_offset, gc9a01.color565(255, 255, 255))
- 
+    update_screen_status()
 
 def hscroll_text( message):
     # Set the foreground (text) color and background color
@@ -66,10 +83,11 @@ def hscroll_text( message):
         # Update the scroll position for the next frame
         scroll -= 5
         utime.sleep(0.01)
-
+        update_screen_status()
     utime.sleep(2.0)
     # Fill the screen with the background color after scrolling
     tft.fill(background)
+    update_screen_status()
 
 def scroll_text(message):
     # Set the foreground (text) color and background color
@@ -117,6 +135,7 @@ def scroll_text(message):
     utime.sleep(2.0)
     # Fill the screen with the background color after scrolling
     tft.fill(background)
+    update_screen_status()
 
 
 def print_message(msg):
@@ -144,4 +163,5 @@ def print_message(msg):
 
     tft.fill(gc9a01.BLACK)  # Clear screen after scrolling is done
     display_centered_text(tft, "Waiting")
-    
+    update_screen_status()
+ 
