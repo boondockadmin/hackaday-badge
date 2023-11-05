@@ -11,5 +11,4 @@ mqtt_password = 'Re9quvutyo8aSKQMf'  # Replace with your MQTT password if requir
 client_id = 'pico-w'  # This can be anything unique
 
 # MQTT topic
-mqtt_topic = 'boondock/72/message'
-
+mqtt_topic = 'boondock/5/message'

@@ -53,6 +53,7 @@ def connect_mqtt():
 
 def connect_wifi():
     wlan.active(True)
+    screen.display_centered_text("WIFI...")
     # Connect to the specified WiFi network
     wlan.connect(credentials.ssid, credentials.password)
 
@@ -65,10 +66,8 @@ def connect_wifi():
     if wlan.isconnected():
         wifi_connected = 1
         print(f"Connected to {credentials.ssid}")
-        screen.display_centered_text("Connected")
+        screen.display_centered_text("WIFI OK")
 
     else:
         print("Failed to connect to WiFi network.")
-        screen.display_centered_text("WiFi Fail")
-
-
+        screen.display_centered_text("WiFi ERR")
