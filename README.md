@@ -1,2 +1,0 @@
-# hackaday-badge
-Hackadaybadge
