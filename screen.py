@@ -162,6 +162,6 @@ def print_message(msg):
             time.sleep(frame_duration - frame_time)
 
     tft.fill(gc9a01.BLACK)  # Clear screen after scrolling is done
-    display_centered_text(tft, "Waiting")
+   # display_centered_text(tft, "Waiting")
     update_screen_status()
  
