@@ -37,14 +37,14 @@ def maintain_mqtt_connection():
             wifi.connect_mqtt()  # Your function to connect to MQTT
             last_mqtt_attempt = time.time()
 
-screen.display_centered_text("Init")
+#screen.display_centered_text("Init")
 # Connec to Wifi
 wifi.connect_wifi()
-screen.display_centered_text("MQTT")
+#screen.display_centered_text("MQTT")
 wifi.connect_mqtt()
 
 # Show "Waiting" message initially
-screen.display_centered_text("Waiting")
+#screen.display_centered_text("Waiting")
 screen.show_network_status()
 
 # Main loop
